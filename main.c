@@ -9,8 +9,9 @@
 int main(int ac, char **av)
 {
 	char *prompt = "($) ";
-	char *line;
+	char *line = NULL;
 	int status;
+	char **tokens = NULL;
 
 	(void)ac;
 
@@ -20,13 +21,16 @@ int main(int ac, char **av)
 		line = read_line();
 		av = token_line(line);
 		status = execute_line(av);
+		free(line);
+		free(tokens);
+		line = NULL;
+		tokens = NULL;
 		if (status == 0)
 		{
 			return (0);
 		}
 	}
-	free(line);
-	free(av);
 
+	free(av);
 	return (0);
 }
