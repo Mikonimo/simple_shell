@@ -7,13 +7,23 @@
  */
 int m_cd(char **args)
 {
+	char *home;
+
+	home = getenv("HOME");
 	if (args[1] == NULL)
 	{
-		args[1] = "..";
+		if (chdir(home) != 0)
+		{
+			perror("hsh");
+		}
 	}
-	if (chdir(args[1]) != 0)
+	else
 	{
-		perror("hsh");
+		if (chdir(args[1]) != 0)
+		{
+			perror("hsh");
+			return (1);
+		}
 	}
 
 	return (1);

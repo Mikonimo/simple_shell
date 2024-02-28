@@ -16,7 +16,7 @@ char *get_path(char *arg)
 	path = getenv("PATH");
 	if (path == NULL)
 	{
-		perror("Error");
+		perror("hsh");
 		exit(1);
 	}
 	path_cpy = strdup(path);
@@ -27,9 +27,8 @@ char *get_path(char *arg)
 		strcpy(full_path, dir);
 		strcat(full_path, "/");
 		strcat(full_path, arg);
-		strcat(full_path, "\0");
 
-		if (access(full_path, 1) == 0)
+		if (access(full_path, X_OK) == 0)
 		{
 			free(path_cpy);
 			return (full_path);
@@ -40,8 +39,8 @@ char *get_path(char *arg)
 			dir = strtok(NULL, ":");
 		}
 	}
-	if (access(arg, 1) == 0)
+	if (access(arg, X_OK) == 0)
 		return (arg);
-	perror("hsh");
-	exit(1);
+	return (full_path);
+
 }
