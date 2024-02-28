@@ -9,7 +9,7 @@
 int execute_line(char **args, char **envp)
 {
 	pid_t pid;
-	int status;
+	int status, exit_status;
 	char *builtin_cmd1 = "cd";
 	char *builtin_cmd2 = "env";
 	char *builtin_cmd3 = "exit";
@@ -44,8 +44,15 @@ int execute_line(char **args, char **envp)
 					perror("hsh");
 			}
 			else
-			waitpid(pid, &status, 2);
+			{
+				waitpid(pid, &status, 0);
+				if (WIFEXITED(status))
+				{
+					exit_status = WEXITSTATUS(status);
+					return (exit_status == 0 ? 0 : 1);
+				}
 			}
+		}
 	}
 	return (1);
 }
