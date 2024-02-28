@@ -39,7 +39,6 @@ int main(int ac, char **av, char **envp)
 		av = token_line(line);
 		status = execute_line(av, envp);
 		free(line);
-		free(av);
 		line = NULL;
 		if (status == 0)
 		{
