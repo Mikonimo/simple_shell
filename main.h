@@ -12,8 +12,8 @@
 char *read_line(void);
 char **token_line(char *line);
 char *get_path(char *arg);
-int execute_line(char **args);
+int execute_line(char **args, char **envp);
 int m_exit(void);
 int m_cd(char **args);
 int m_env(char **env);
-#endif/*MAIN_H*/
+#endif /*MAIN_H*/

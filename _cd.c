@@ -13,7 +13,7 @@ int m_cd(char **args)
 	}
 	if (chdir(args[1]) != 0)
 	{
-		perror("lsh");
+		perror("hsh");
 	}
 
 	return (1);

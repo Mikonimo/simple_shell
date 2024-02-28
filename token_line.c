@@ -15,7 +15,7 @@ char **token_line(char *line)
 
 	if (!tokens)
 	{
-		perror("hsh: memory allocation error");
+		perror("hsh");
 		exit(1);
 	}
 	token = strtok(line, DELIM);

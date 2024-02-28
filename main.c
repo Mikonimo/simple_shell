@@ -3,10 +3,11 @@
  * main - entry point
  * @ac: the argument count
  * @av: array of pointers to strings passed as arguments
+ * @envp: array  of pointers to the environment variables
  *
  * Return: 0 if succesful
  */
-int main(int ac, char **av)
+int main(int ac, char **av, char **envp)
 {
 	char *prompt = "($) ";
 	char *line = NULL;
@@ -34,9 +35,9 @@ int main(int ac, char **av)
 		else
 		{
 			break;
-		}		
+		}
 		av = token_line(line);
-		status = execute_line(av);
+		status = execute_line(av, envp);
 		free(line);
 		free(av);
 		line = NULL;

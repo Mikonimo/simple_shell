@@ -42,6 +42,6 @@ char *get_path(char *arg)
 	}
 	if (access(arg, 1) == 0)
 		return (arg);
-	perror("Error");
+	perror("hsh");
 	exit(1);
 }
