@@ -45,6 +45,7 @@ int main(int ac, char **av, char **envp)
 			break;
 		}
 	}
-
+	
+	free(av);
 	return (0);
 }
