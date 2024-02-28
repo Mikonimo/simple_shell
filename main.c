@@ -11,26 +11,40 @@ int main(int ac, char **av)
 	char *prompt = "($) ";
 	char *line = NULL;
 	int status;
-	char **tokens = NULL;
+	int interactive;
 
 	(void)ac;
 
+	interactive = isatty(STDIN_FILENO);
 	while (1)
 	{
-		printf("%s", prompt);
-		line = read_line();
+		if (interactive)
+		{
+			printf("%s", prompt);
+			fflush(stdout);
+		}
+		if (interactive || av[1] == NULL)
+		{
+			line = read_line();
+			if (!interactive && line == NULL)
+			{
+				break;
+			}
+		}
+		else
+		{
+			break;
+		}		
 		av = token_line(line);
 		status = execute_line(av);
 		free(line);
-		free(tokens);
+		free(av);
 		line = NULL;
-		tokens = NULL;
 		if (status == 0)
 		{
-			return (0);
+			break;
 		}
 	}
 
-	free(av);
 	return (0);
 }
