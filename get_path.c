@@ -40,6 +40,10 @@ char *get_path(char *arg)
 		}
 	}
 	if (access(arg, X_OK) == 0)
+	{
+		free(path_cpy);
 		return (arg);
+	}
+	free(path_cpy);
 	return (NULL);
 }
