@@ -13,6 +13,7 @@ char *read_line(void)
 	nread = getline(&line, &bufsize, stdin);
 	if (nread == -1)
 	{
+		free(line);
 		exit(0);
 	}
 

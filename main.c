@@ -13,6 +13,7 @@ int main(int ac, char **av, char **envp)
 	char *line = NULL;
 	int status;
 	int interactive;
+	char **tokens = NULL;
 
 	(void)ac;
 
@@ -36,11 +37,12 @@ int main(int ac, char **av, char **envp)
 		{
 			break;
 		}
-		av = token_line(line);
-		status = execute_line(av, envp);
+		tokens = token_line(line);
+		status = execute_line(tokens, envp);
 		free(line);
 		line = NULL;
-		free(av);
+		free(tokens);
+		tokens = NULL;
 		if (status == 0)
 		{
 			break;
