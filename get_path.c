@@ -13,11 +13,14 @@ char *get_path(char *arg)
 	char *full_path;
 	size_t bufsize = TOK_SIZE;
 
+	if (arg[0] == '/')
+	{
+		return (strdup(arg));
+	}
 	path = getenv("PATH");
 	if (path == NULL)
 	{
-		perror("hsh");
-		exit(1);
+		return (NULL);
 	}
 	path_cpy = strdup(path);
 	dir = strtok(path_cpy, ":");

@@ -43,11 +43,14 @@ int main(int ac, char **av, char **envp)
 		line = NULL;
 		free(tokens);
 		tokens = NULL;
+		if (status == 127)
+		{
+			exit(127);
+		}
 		if (status == 0)
 		{
 			break;
 		}
 	}
-
 	return (0);
 }

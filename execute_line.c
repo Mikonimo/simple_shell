@@ -30,8 +30,8 @@ int execute_line(char **args, char **envp)
 		cmd = get_path(args[0]);
 		if (cmd == NULL || access(cmd, X_OK) != 0)
 		{
-			perror("hsh");
-			return (1);
+			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
+			return (127);
 		}
 		else
 		{
