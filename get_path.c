@@ -41,6 +41,5 @@ char *get_path(char *arg)
 	}
 	if (access(arg, X_OK) == 0)
 		return (arg);
-	return (full_path);
-
+	return (NULL);
 }

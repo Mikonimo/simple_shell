@@ -41,10 +41,15 @@ int execute_line(char **args, char **envp)
 			else if (pid == 0)
 			{
 				if (execve(cmd, args, envp) == -1)
+				{
 					perror("hsh");
+					free(cmd);
+				}
 			}
 			else
 				waitpid(pid, &status, 0);
+			if (cmd != *args)
+				free(cmd);
 		}
 	}
 	return (1);

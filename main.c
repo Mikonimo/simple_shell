@@ -40,12 +40,12 @@ int main(int ac, char **av, char **envp)
 		status = execute_line(av, envp);
 		free(line);
 		line = NULL;
+		free(av);
 		if (status == 0)
 		{
 			break;
 		}
 	}
 
-	free(av);
 	return (0);
 }
