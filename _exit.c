@@ -4,7 +4,7 @@
  *
  * Return: 0
  */
-int m_exit(void)
+int m_exit(void) 
 {
 	return (0);
 }

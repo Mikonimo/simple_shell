@@ -47,10 +47,14 @@ int main(int ac, char **av, char **envp)
 		{
 			exit(127);
 		}
+		if (status == 2)
+		{
+			exit(2);
+		}
 		if (status == 0)
 		{
 			break;
 		}
 	}
-	return (0);
+	return (status);
 }

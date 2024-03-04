@@ -31,7 +31,7 @@ int execute_line(char **args, char **envp)
 		if (cmd == NULL || access(cmd, X_OK) != 0)
 		{
 			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
-			return (127);
+			status = 127;
 		}
 		else
 		{
@@ -44,13 +44,26 @@ int execute_line(char **args, char **envp)
 				{
 					perror("hsh");
 					free(cmd);
+					exit(2);
 				}
 			}
 			else
+			{
 				waitpid(pid, &status, 0);
-			if (cmd != *args)
-				free(cmd);
+				if (status > 1)
+				{
+					status = status  / 256;
+				}
+				else
+				{
+					return (1);
+				}
+			}
+			/*if (cmd != *args)*/
+			free(cmd);
+
 		}
 	}
-	return (1);
+
+	return (status);
 }
