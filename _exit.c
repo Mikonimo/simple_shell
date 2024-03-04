@@ -1,10 +1,10 @@
 #include "main.h"
 /**
  * m_exit - exits the shell
+ * @s: the exit status
  *
- * Return: 0
  */
-int m_exit(void) 
+void m_exit()
 {
-	return (0);
+	exit(exit_status);
 }

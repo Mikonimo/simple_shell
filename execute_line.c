@@ -3,10 +3,11 @@
  * execute_line - executes the arguments tokenized from the line
  * @args: the arguements to be executed
  * @envp: the environment variables
+ * @line: read from stdin
  *
  * Return: the status, success or failure
  */
-int execute_line(char **args, char **envp)
+int execute_line(char **args, char **envp, char *line)
 {
 	pid_t pid;
 	int status;
@@ -23,7 +24,9 @@ int execute_line(char **args, char **envp)
 		return (m_env(envp));
 	else if (strcmp(args[0], builtin_cmd3) == 0)
 	{
-		return (m_exit());
+		free(line);
+		free(args);
+		m_exit();
 	}
 	else
 	{
@@ -31,7 +34,8 @@ int execute_line(char **args, char **envp)
 		if (cmd == NULL || access(cmd, X_OK) != 0)
 		{
 			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
-			status = 127;
+			free(cmd);
+			exit_status = 127;
 		}
 		else
 		{
@@ -50,13 +54,9 @@ int execute_line(char **args, char **envp)
 			else
 			{
 				waitpid(pid, &status, 0);
-				if (status > 1)
+				if (WIFEXITED(status))
 				{
-					status = status  / 256;
-				}
-				else
-				{
-					return (1);
+					exit_status = WEXITSTATUS(status);
 				}
 			}
 			/*if (cmd != *args)*/
@@ -64,6 +64,5 @@ int execute_line(char **args, char **envp)
 
 		}
 	}
-
-	return (status);
+	return (1);
 }

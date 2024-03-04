@@ -1,4 +1,5 @@
 #include "main.h"
+int exit_status;
 /**
  * main - entry point
  * @ac: the argument count
@@ -38,23 +39,15 @@ int main(int ac, char **av, char **envp)
 			break;
 		}
 		tokens = token_line(line);
-		status = execute_line(tokens, envp);
+		status = execute_line(tokens, envp, line);
 		free(line);
 		line = NULL;
 		free(tokens);
 		tokens = NULL;
-		if (status == 127)
+		if (status == exit_status)
 		{
-			exit(127);
-		}
-		if (status == 2)
-		{
-			exit(2);
-		}
-		if (status == 0)
-		{
-			break;
+			/** nothing*/
 		}
 	}
-	return (status);
+	return (0);
 }
